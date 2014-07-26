@@ -56,6 +56,7 @@ public class GameLogic : GameLogicImplementationBase
 			playerTwoCount++;
 		}
 
+		Game.instance.GetComponent<UI>().IncreaseTimer(10.0f, pPlayerId);
 		Game.instance.GetComponent<LevelCreator>().SpawnCollectable(ref levelGrid);
 	}
 
