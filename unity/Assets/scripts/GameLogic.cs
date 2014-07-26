@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class GameLogic : GameLogicImplementationBase
 {
-	public int[][] levelGrid {get; private set;}
+	public int playerOneCount {get; private set;}
+	public int playerTwoCount {get; private set;}
+	public int[][] level { get { return levelGrid;}}
+	int[][] levelGrid;
+
+	public event System.Action<int[][]> OnItemCollected;
 
 	#region implemented abstract members of GameLogicImplementationBase
 
@@ -40,6 +45,23 @@ public class GameLogic : GameLogicImplementationBase
 	public override bool OnBeforePause ()
 	{
 		return true;
+	}
+
+	public void IncreaseItemCount(int pPlayerId)
+	{
+		if(pPlayerId == 1)
+		{
+			playerOneCount++;
+		}
+		else if(pPlayerId == 2)
+		{
+			playerTwoCount++;
+		}
+
+		if(OnItemCollected != null)
+		{
+			Game.instance.GetComponent<LevelCreator>().SpawnCollectable(ref levelGrid);
+		}
 	}
 
 	#endregion
