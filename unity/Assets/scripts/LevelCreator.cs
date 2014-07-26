@@ -12,15 +12,8 @@ public class LevelCreator : MonoBehaviour
 	public GameObject waterSource;
 	public int maxObjects;
 	public GameObject[] obstacles;
-	
-	void Start()
-	{
-		GenerateLevel((level) => {
 
-		});
-	}
-
-	void GenerateLevel(System.Action<int[][]> pOnDone)
+	public void GenerateLevel(System.Action<int[][]> pOnDone)
 	{
 		//Init level grid
 		int[][] levelGrid = new int[levelWidth][];
@@ -66,10 +59,14 @@ public class LevelCreator : MonoBehaviour
 		{
 			pOnDone(levelGrid);
 		}
+
 	}
 
 	void GenerateObstacles(ref int[][] pLevelGrid)
 	{
+		var parent = new GameObject();
+		parent.name = "Obstacles";
+
 		for(int x = 0; x < pLevelGrid.Length; x++)
 		{
 			for (int y = 0; y < pLevelGrid[0].Length; y++)
@@ -81,7 +78,8 @@ public class LevelCreator : MonoBehaviour
 					if(randFloat < (float)maxObjects / ((float)levelWidth * (float)levelHeight))
 					{
 						GameObject go = obstacles[Random.Range(0, obstacles.Length - 1)];
-						Instantiate(go, new Vector3(x,1,y), Quaternion.identity);
+						go = Instantiate(go, new Vector3(x,1,y), Quaternion.identity) as GameObject;
+						go.transform.parent = parent.transform;
 						pLevelGrid[x][y] = (int)EObject.Obstacle;
 						maxObjects--;
 					}
@@ -105,7 +103,8 @@ public class LevelCreator : MonoBehaviour
 						if(randFloat < (float)playerAmount / ((float)levelWidth * (float) levelHeight))
 						{
 							var player = players[playerAmount - 1];
-							Instantiate(player, new Vector3(x,2,y), Quaternion.identity);
+							player = Instantiate(player, new Vector3(x,2,y), Quaternion.identity) as GameObject;
+							player.name = "Player_" + playerAmount;
 							pLevelGrid[x][y] = (int)EObject.Player;
 							playerAmount--;
 						}
