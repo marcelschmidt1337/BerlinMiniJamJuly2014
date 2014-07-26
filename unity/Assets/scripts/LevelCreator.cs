@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelCreator : MonoBehaviour 
+public class LevelCreator : GameComponent 
 {
 	public int levelWidth;
 	public int levelHeight;
@@ -12,6 +12,7 @@ public class LevelCreator : MonoBehaviour
 	public GameObject waterSource;
 	public int maxObjects;
 	public GameObject[] obstacles;
+
 
 	public void GenerateLevel(System.Action<int[][]> pOnDone)
 	{
