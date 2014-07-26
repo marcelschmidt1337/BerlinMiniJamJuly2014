@@ -13,6 +13,8 @@ public class LevelCreator : GameComponent
 	public int maxObjects;
 	public GameObject[] obstacles;
 
+	public Material groundMaterial;
+
 
 	public void GenerateLevel(System.Action<int[][]> pOnDone)
 	{
@@ -32,6 +34,7 @@ public class LevelCreator : GameComponent
 			for (int y = 0; y < levelHeight; y++)
 			{
 				var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				go.renderer.material = groundMaterial;
 				go.transform.position = new Vector3(x,0, y);
 				go.transform.parent = levelParent.transform;
 				levelGrid[x][y] = (int)EObject.None;
