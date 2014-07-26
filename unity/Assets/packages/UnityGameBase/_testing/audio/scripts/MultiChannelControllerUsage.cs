@@ -19,7 +19,11 @@ namespace UGB.audio.Test
 		// Update is called once per frame
 		void Update ()
 		{
-	
+			if(Input.GetKeyDown(KeyCode.A))
+				controller.PlaySoundEffect(clips[2],1);
+			if(Input.GetKeyDown(KeyCode.D))
+				controller.PlaySoundEffect(clips[3],1);
+
 		}
 
 		void PlayAtmo(int idx)
@@ -35,10 +39,9 @@ namespace UGB.audio.Test
 				controller.Stop(lastChannel,pImmediately);
 			lastChannel = null;
 		}
-		void OneShot()
-		{
-			controller.PlaySoundEffect(clips[2]);
-		}
+
+
+
 		void OnGUI()
 		{
 
@@ -57,6 +60,8 @@ namespace UGB.audio.Test
 
 			GUILayout.EndHorizontal();
 			GUILayout.Space(20);
+			GUILayout.TextArea("To play sound FX hit A or D");
+			GUILayout.Space(10);
 			GUILayout.BeginHorizontal();
 			if(GUILayout.Button("Play Atmo1"))
 			{
@@ -77,10 +82,6 @@ namespace UGB.audio.Test
 				StopCurrentChannel(true);
 			}
 
-			if(GUILayout.Button("Shot"))
-			{
-				OneShot();
-			}
 
 			controller.mute = GUILayout.Toggle(controller.mute, "mute");
 			controller.fadeDuration = GUILayout.HorizontalSlider(controller.fadeDuration, 0, 2);

@@ -8,8 +8,18 @@ namespace UGB.audio
 	{
 		MultiChannelController controller;
 		float fadeFrag;
+
+		/// <summary>
+		/// If this channel plays a one shot, this resembles the time this channel will remain in this state. 
+		/// </summary>
+		public float oneShotTimeOut
+		{
+			get;
+			private set;
+		}
 		public enum eChannelState
 		{
+			oneShot,
 			stopped,
 			playing,
 			fadeIn,
@@ -104,6 +114,17 @@ namespace UGB.audio
 			source.Play();
 		}
 
+		public void PlayOneShot (AudioClip pClip, float pVolume)
+		{
+			SetState(eChannelState.oneShot);
+			oneShotTimeOut = pClip.length;
+			clip = pClip;
+			actualVolume = volume;
+			source.volume = actualVolume;
+			source.clip = pClip;
+			source.PlayOneShot(pClip, pVolume);
+		}
+
 		public void Stop(bool pImmediately)
 		{
 
@@ -121,10 +142,16 @@ namespace UGB.audio
 
 		public void Update ()
 		{
-			source.loop = loop;
-			source.clip = clip;
+			if(state != eChannelState.oneShot)
+			{
+				source.loop = loop;
+				source.clip = clip;
+			}
 			UpdateFromState();
-			source.volume = GetActualVolume();
+			if(state != eChannelState.oneShot)
+			{
+				source.volume = GetActualVolume();
+			}
 		}
 
 		void SetState(eChannelState pNewState)
@@ -197,6 +224,11 @@ namespace UGB.audio
 				{
 					source.Stop();
 				}
+				break;
+			case eChannelState.oneShot:
+				oneShotTimeOut -= Time.deltaTime;
+				if(oneShotTimeOut <= 0)
+					SetState(eChannelState.stopped);
 				break;
 			}
 		}

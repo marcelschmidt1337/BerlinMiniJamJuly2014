@@ -79,6 +79,10 @@ public class GameMusic : MultiChannelController
 			Debug.Log("GameMusic: " + pState);
 			
 			AudioClip _requestedClip  = GetClipForState(pState);
+			if(mCurrentChannel != null)
+			{
+				Stop (mCurrentChannel, false);
+			}
 			mCurrentChannel = Play(_requestedClip, true);
 			currentState = pState;
 		}

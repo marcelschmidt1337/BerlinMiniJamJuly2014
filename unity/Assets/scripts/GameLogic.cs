@@ -6,12 +6,13 @@ public class GameLogic : GameLogicImplementationBase
 
 	public override void Start ()
 	{
-		throw new System.NotImplementedException ();
+		SGameState.Add((int)EGameState.Ingame, EGameState.Ingame.ToString());
 	}
 
 	public override void GameSetupReady ()
 	{
-		throw new System.NotImplementedException ();
+		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.blackTexture;
+		Game.instance.mSceneTransition.LoadScene((int)EGameState.Ingame);
 	}
 
 	public override void GameStateChanged (SGameState pOldState, SGameState pCurrentGameState)
@@ -21,7 +22,7 @@ public class GameLogic : GameLogicImplementationBase
 
 	public override SGameState GetCurrentGameState ()
 	{
-		throw new System.NotImplementedException ();
+		return Application.loadedLevel;
 	}
 
 	public override bool OnBeforeRestart ()
