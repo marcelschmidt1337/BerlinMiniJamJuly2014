@@ -8,6 +8,7 @@ public class PlayerBehavior : MonoBehaviour
 		public string stepL, stepR;
 		public float cooldown = 1.0f;
 		float lastPressed = 0.0f;
+		public int playerID = 0;
 
 		// Use this for initialization
 		void Start ()
@@ -31,12 +32,14 @@ public class PlayerBehavior : MonoBehaviour
 				if (canStep ()) {
 						if (Input.GetButtonDown (stepL)) {
 								transform.FindChild ("Left Foot").rigidbody.AddRelativeForce ((new Vector3 (0.0f, 0.0f, 1.0f)) * stepStrength);
+				transform.FindChild ("PlayerSprite").GetComponent<Animator>().SetTrigger("LeftStep");
 								//Debug.Log ("Left!");
 								registerStepTaken ();
 						}
-						if (Input.GetButtonDown (stepR)) {
+						else if (Input.GetButtonDown (stepR)) {
 								transform.FindChild ("Right Foot").rigidbody.AddRelativeForce ((new Vector3 (0.0f, 0.0f, 1.0f)) * stepStrength);
-								//Debug.Log ("Right!");
+								transform.FindChild ("PlayerSprite").GetComponent<Animator>().SetTrigger("RightStep");
+				//Debug.Log ("Right!");
 								registerStepTaken ();
 						}
 				}
