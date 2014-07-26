@@ -32,13 +32,13 @@ public class UI : GameComponent
 		if(timer1 <= 0)
 		{
 			//Player 1 wins
-			winner = "Player 1";
+			winner = "Player 2";
 
 		}
 		else if(timer1 <= 0)
 		{
 			//Player 2 wins
-			winner = "Player 2";
+			winner = "Player 1";
 		}
 
 	}
