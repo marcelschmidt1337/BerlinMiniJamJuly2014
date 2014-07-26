@@ -7,8 +7,6 @@ public class GameLogic : GameLogicImplementationBase
 	public int[][] level { get { return levelGrid;}}
 	int[][] levelGrid;
 
-	public event System.Action<int[][]> OnItemCollected;
-
 	#region implemented abstract members of GameLogicImplementationBase
 
 	public override void Start ()
@@ -58,10 +56,7 @@ public class GameLogic : GameLogicImplementationBase
 			playerTwoCount++;
 		}
 
-		if(OnItemCollected != null)
-		{
-			Game.instance.GetComponent<LevelCreator>().SpawnCollectable(ref levelGrid);
-		}
+		Game.instance.GetComponent<LevelCreator>().SpawnCollectable(ref levelGrid);
 	}
 
 	#endregion
