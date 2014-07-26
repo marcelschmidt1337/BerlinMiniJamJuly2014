@@ -50,6 +50,7 @@ public class LevelCreator : GameComponent
 
 		Vector3 camPos = Camera.main.transform.position;
 		camPos.x = (float)levelWidth * 0.5f;
+		camPos.z = (float)levelHeight * 0.5f;
 		Camera.main.transform.position = camPos;
 
 		GenerateObstacles(ref levelGrid);
