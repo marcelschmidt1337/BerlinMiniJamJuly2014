@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameLogic : GameLogicImplementationBase
 {
+	public int[][] levelGrid;
+
 	#region implemented abstract members of GameLogicImplementationBase
 
 	public override void Start ()
@@ -17,7 +19,7 @@ public class GameLogic : GameLogicImplementationBase
 
 	public override void GameStateChanged (SGameState pOldState, SGameState pCurrentGameState)
 	{
-		throw new System.NotImplementedException ();
+
 	}
 
 	public override SGameState GetCurrentGameState ()
@@ -27,12 +29,12 @@ public class GameLogic : GameLogicImplementationBase
 
 	public override bool OnBeforeRestart ()
 	{
-		throw new System.NotImplementedException ();
+		return true;
 	}
 
 	public override bool OnBeforePause ()
 	{
-		throw new System.NotImplementedException ();
+		return true;
 	}
 
 	#endregion
