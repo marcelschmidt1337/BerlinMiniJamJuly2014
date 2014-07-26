@@ -13,11 +13,13 @@ public class LevelCreator : GameComponent
 	public int maxObjects;
 	public GameObject[] obstacles;
 
-	public Material groundMaterial;
+
+	public GameObject groundPlane;
 
 
 	public void GenerateLevel(System.Action<int[][]> pOnDone)
 	{
+		Instantiate(groundPlane,new Vector3(10.0f,0,5.0f), Quaternion.Euler(90.0f,0,0));
 		//Init level grid
 		int[][] levelGrid = new int[levelWidth][];
 
@@ -34,7 +36,7 @@ public class LevelCreator : GameComponent
 			for (int y = 0; y < levelHeight; y++)
 			{
 				var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				go.renderer.material = groundMaterial;
+				go.renderer.enabled = false;
 				go.transform.position = new Vector3(x,0, y);
 				go.transform.parent = levelParent.transform;
 				levelGrid[x][y] = (int)EObject.None;
