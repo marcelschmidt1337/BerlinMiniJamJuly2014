@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameLogic : GameLogicImplementationBase
 {
-	public int[][] levelGrid;
+	public int[][] levelGrid {get; private set;}
 
 	#region implemented abstract members of GameLogicImplementationBase
 
@@ -19,7 +19,12 @@ public class GameLogic : GameLogicImplementationBase
 
 	public override void GameStateChanged (SGameState pOldState, SGameState pCurrentGameState)
 	{
-
+		if(pCurrentGameState == (int)EGameState.Ingame)
+		{
+			Game.instance.GetComponent<LevelCreator>().GenerateLevel((level) => {
+				levelGrid = level;
+			});
+		}
 	}
 
 	public override SGameState GetCurrentGameState ()
