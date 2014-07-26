@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaterItemBehavior : MonoBehaviour {
+public class WaterItemBehavior : GameComponent {
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +15,9 @@ public class WaterItemBehavior : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other){
-
-				Destroy (this);
+		Debug.Log ("WATER! Finally!");
+				Destroy(this.gameObject);
+		(GLogic as GameLogic).IncreaseItemCount (other.GetComponent<PlayerBehavior> ().playerID);
 
 
 	}
