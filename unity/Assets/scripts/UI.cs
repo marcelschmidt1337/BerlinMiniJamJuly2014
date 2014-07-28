@@ -66,6 +66,7 @@ public class UI : GameComponent
 			if(Input.anyKeyDown)
 			{
 				timer1 = timer2 = -1;
+				mGameOver = false;
 				mGameOverScreen.SetActive(false);
 				(GLogic as GameLogic).RestartLevel();
 			}
