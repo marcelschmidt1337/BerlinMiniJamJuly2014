@@ -7,27 +7,46 @@ public class GameLogic : GameLogicImplementationBase
 	public int[][] level { get { return levelGrid;}}
 	int[][] levelGrid;
 
+	UI mUI;
+	LevelCreator mLevelCreator;
+
 	#region implemented abstract members of GameLogicImplementationBase
 
 	public override void Start ()
 	{
 		SGameState.Add((int)EGameState.Ingame, EGameState.Ingame.ToString());
+
+		mUI = Game.instance.GetComponentInChildren<UI>();
+		mLevelCreator = Game.instance.GetComponent<LevelCreator>();
+
+
 	}
 
 	public override void GameSetupReady ()
 	{
+		Game.instance.mSceneTransition.OnSceneTransitionIsDone += HandleOnSceneTransitionIsDone;
 		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.blackTexture;
 		Game.instance.mSceneTransition.LoadScene((int)EGameState.Ingame);
 	}
 
-	public override void GameStateChanged (SGameState pOldState, SGameState pCurrentGameState)
+	void HandleOnSceneTransitionIsDone (int pSceneID)
 	{
-		if(pCurrentGameState == (int)EGameState.Ingame)
+		if(pSceneID == (int)EGameState.Ingame)
 		{
-			Game.instance.GetComponent<LevelCreator>().GenerateLevel((level) => {
+			mLevelCreator.GenerateLevel((level) => {
 				levelGrid = level;
 			});
 		}
+	}
+
+	public override void GameStateChanged (SGameState pOldState, SGameState pCurrentGameState)
+	{
+//		if(pCurrentGameState == (int)EGameState.Ingame)
+//		{
+//			mLevelCreator.GenerateLevel((level) => {
+//				levelGrid = level;
+//			});
+//		}
 	}
 
 	public override SGameState GetCurrentGameState ()
@@ -56,11 +75,17 @@ public class GameLogic : GameLogicImplementationBase
 			playerTwoCount++;
 		}
 
-		Game.instance.GetComponent<UI>().IncreaseTimer(10.0f, pPlayerId);
-		Game.instance.GetComponent<LevelCreator>().SpawnCollectable(ref levelGrid);
+		mUI.IncreaseTimer(10.0f, pPlayerId);
+		mLevelCreator.SpawnCollectable(ref levelGrid);
 	}
 
 	#endregion
+
+	public void RestartLevel()
+	{
+		mLevelCreator.DestroyLevel();
+		Game.instance.mSceneTransition.LoadScene((int)EGameState.Ingame, true);
+	}
 
 
 }
