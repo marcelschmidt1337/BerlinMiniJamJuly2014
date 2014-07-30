@@ -28,7 +28,7 @@ public class GameLogic : GameLogicImplementationBase
 	public override void GameSetupReady ()
 	{
 		Game.instance.mSceneTransition.OnSceneTransitionIsDone += HandleOnSceneTransitionIsDone;
-		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.whiteTexture;
+//		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.whiteTexture;
 		Game.instance.mSceneTransition.LoadScene((int)EGameState.Ingame);
 	}
 
