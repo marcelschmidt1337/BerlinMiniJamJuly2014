@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerBehavior : MonoBehaviour
+public class PlayerBehavior : GameComponent
 {
 
 		public float stepStrength = 10.0f;
@@ -35,12 +35,14 @@ public class PlayerBehavior : MonoBehaviour
 				transform.FindChild ("PlayerSprite").GetComponent<Animator>().SetTrigger("LeftStep");
 								//Debug.Log ("Left!");
 								registerStepTaken ();
+								(GLogic as GameLogic).soundMachine.PlaySfx(1);
 						}
 						else if (Input.GetButtonDown (stepR)) {
 								transform.FindChild ("Right Foot").rigidbody.AddRelativeForce ((new Vector3 (0.0f, 0.0f, 1.0f)) * stepStrength);
 								transform.FindChild ("PlayerSprite").GetComponent<Animator>().SetTrigger("RightStep");
 				//Debug.Log ("Right!");
 								registerStepTaken ();
+								(GLogic as GameLogic).soundMachine.PlaySfx(2);
 						}
 				}
 

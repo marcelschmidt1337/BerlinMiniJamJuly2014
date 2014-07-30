@@ -52,18 +52,20 @@ public class UI : GameComponent
 			p2.value = timer2;
 		}
 
-		if(timer1 <= 0 && timer1 != -1)
+		if(!mGameOver)
 		{
-			GameOver(2);
+			if(timer1 <= 0 && timer1 != -1)
+			{
+				GameOver(2);
+			}
+			else if(timer2 <= 0 && timer2 != -1)
+			{
+				GameOver(1);
+			}
 		}
-		else if(timer2 <= 0 && timer2 != -1)
+		else
 		{
-			GameOver(1);
-		}
-
-		if(mGameOver)
-		{
-			if(Input.anyKeyDown)
+			if(Input.GetKeyUp(KeyCode.Space))
 			{
 				timer1 = timer2 = -1;
 				mGameOver = false;
@@ -75,6 +77,7 @@ public class UI : GameComponent
 
 	void GameOver(int pWinnerId)
 	{
+		(GLogic as GameLogic).soundMachine.PlaySfx(3);
 		mGameOver = true;
 		mGameOverScreen.SetActive(mGameOver);
 		gameOverMessage.text = "Player " + pWinnerId + " wins!";

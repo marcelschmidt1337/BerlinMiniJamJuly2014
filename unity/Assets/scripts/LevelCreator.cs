@@ -94,7 +94,7 @@ public class LevelCreator : GameComponent
 
 					if(randFloat < (float)amount / ((float)levelWidth * (float)levelHeight))
 					{
-						GameObject go = obstacles[Random.Range(0, obstacles.Length - 1)];
+						GameObject go = obstacles[Random.Range(0, obstacles.Length)];
 						go = Instantiate(go, new Vector3(x,1,y), Quaternion.identity) as GameObject;
 						go.transform.parent = parent.transform;
 						pLevelGrid[x][y] = (int)EObject.Obstacle;

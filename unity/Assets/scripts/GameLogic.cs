@@ -1,4 +1,5 @@
 using UnityEngine;
+using UGB.audio;
 
 public class GameLogic : GameLogicImplementationBase
 {
@@ -6,6 +7,8 @@ public class GameLogic : GameLogicImplementationBase
 	public int playerTwoCount {get; private set;}
 	public int[][] level { get { return levelGrid;}}
 	int[][] levelGrid;
+
+	public Sounds soundMachine {get; private set;}
 
 	UI mUI;
 	LevelCreator mLevelCreator;
@@ -18,14 +21,14 @@ public class GameLogic : GameLogicImplementationBase
 
 		mUI = Game.instance.GetComponentInChildren<UI>();
 		mLevelCreator = Game.instance.GetComponent<LevelCreator>();
-
+		soundMachine = Game.instance.GetComponent<Sounds>();
 
 	}
 
 	public override void GameSetupReady ()
 	{
 		Game.instance.mSceneTransition.OnSceneTransitionIsDone += HandleOnSceneTransitionIsDone;
-		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.blackTexture;
+		Game.instance.mSceneTransition.mFadeTexture = UIHelpers.whiteTexture;
 		Game.instance.mSceneTransition.LoadScene((int)EGameState.Ingame);
 	}
 
@@ -47,6 +50,11 @@ public class GameLogic : GameLogicImplementationBase
 //				levelGrid = level;
 //			});
 //		}
+
+		if(pCurrentGameState == (int)EGameState.Ingame)
+		{
+			soundMachine.PlayMusic();
+		}
 	}
 
 	public override SGameState GetCurrentGameState ()
@@ -66,6 +74,8 @@ public class GameLogic : GameLogicImplementationBase
 
 	public void IncreaseItemCount(int pPlayerId)
 	{
+		soundMachine.PlaySfx(0);
+
 		if(pPlayerId == 1)
 		{
 			playerOneCount++;
