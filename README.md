@@ -1,4 +1,5 @@
 # README #
+![title screen.png](https://bitbucket.org/repo/oABo9G/images/1900189707-title%20screen.png)
 
 ### About: ###
 Each player controls one leg of a figure which is walking through a desert.
@@ -22,4 +23,3 @@ Left leg -> "j"  Right leg -> "l"
 
 
 **Created during the Berlin Mini Game Jam on July 26, 2014 within 8h.**
-
