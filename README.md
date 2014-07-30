@@ -23,3 +23,6 @@ Left leg -> "j"  Right leg -> "l"
 
 
 **Created during the Berlin Mini Game Jam on July 26, 2014 within 8h.**
+
+
+![Screenshot.jpg](https://bitbucket.org/marcelschmidt/berlinminijamjuly/downloads/Screenshot.JPG)
